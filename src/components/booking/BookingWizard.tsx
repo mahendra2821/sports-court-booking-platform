@@ -106,7 +106,7 @@ export function BookingWizard() {
       // Create the main booking
       const { data: booking, error: bookingError } = await supabase
         .from('bookings')
-        .insert({
+        .insert([{
           court_id: formData.court.id,
           coach_id: formData.coach?.id || null,
           booking_date: format(formData.date, 'yyyy-MM-dd'),
@@ -117,13 +117,13 @@ export function BookingWizard() {
           coach_price: priceBreakdown.coachTotal,
           adjustments_price: priceBreakdown.courtAdjustments.reduce((sum, adj) => sum + adj.amount, 0),
           total_price: priceBreakdown.totalPrice,
-          price_breakdown: priceBreakdown,
+          price_breakdown: JSON.parse(JSON.stringify(priceBreakdown)),
           customer_name: formData.customerName,
           customer_email: formData.customerEmail,
           customer_phone: formData.customerPhone,
           notes: formData.notes,
           status: 'confirmed',
-        })
+        }])
         .select()
         .single();
 
