@@ -74,12 +74,12 @@ export function calculatePrice(context: PricingContext): PriceBreakdown {
 
   for (const rule of applicableRules) {
     const previousPrice = adjustedPrice;
-    
+
     // Apply multiplier
     if (rule.multiplier !== 1) {
       adjustedPrice = adjustedPrice * rule.multiplier;
     }
-    
+
     // Apply flat fee
     if (rule.flat_fee !== 0) {
       adjustedPrice += rule.flat_fee;
